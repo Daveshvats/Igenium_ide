@@ -16,7 +16,7 @@ COPY . .
 # Generate Prisma client
 RUN npx prisma generate
 
-# Build the application
+# Build the application (without Turbopack)
 RUN npm run build
 
 # Setup database and seed

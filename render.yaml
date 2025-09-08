@@ -3,7 +3,7 @@ services:
     name: idearpit
     env: node
     plan: free
-    buildCommand: npm install && npm run build && npm run deploy:prod
+    buildCommand: npm run build:prod
     startCommand: npm start
     envVars:
       - key: NODE_ENV

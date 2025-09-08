@@ -27,7 +27,7 @@ This guide will help you deploy your IdeaRpit application to Render using Postgr
    - Click "New +" → "Web Service"
    - Connect your GitHub repository
    - Use these settings:
-     - **Build Command**: `npm install && npm run build && npm run deploy:prod`
+     - **Build Command**: `npm run build:prod`
      - **Start Command**: `npm start`
      - **Environment**: `Node`
 
@@ -82,17 +82,24 @@ Render provides:
 
 ### Common Issues:
 
-1. **Build Fails**:
+1. **Turbopack Build Errors**:
+   - ✅ **Fixed**: Turbopack is now disabled for production builds
+   - Uses standard Next.js build process for reliability
+
+2. **Build Fails**:
    - Check that all dependencies are in `package.json`
    - Verify build command is correct
+   - Ensure `NODE_ENV=production` is set
 
-2. **Database Connection Issues**:
+3. **Database Connection Issues**:
    - Verify `DATABASE_URL` is correct
    - Check that Neon database is accessible
+   - Ensure database is not sleeping (Neon free tier)
 
-3. **Application Crashes**:
+4. **Application Crashes**:
    - Check logs in Render dashboard
    - Verify environment variables are set
+   - Check database connection status
 
 ### Logs Access:
 - Go to your service dashboard
