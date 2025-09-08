@@ -1,0 +1,160 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+enum ProblemType {
+  TIME_OPTIMIZATION
+  SPACE_OPTIMIZATION
+  GENERAL
+}
+
+enum SubmissionStatus {
+  PENDING
+  RUNNING
+  ACCEPTED
+  WRONG_ANSWER
+  TIME_LIMIT_EXCEEDED
+  MEMORY_LIMIT_EXCEEDED
+  RUNTIME_ERROR
+  COMPILATION_ERROR
+}
+
+enum RoundStatus {
+  DRAFT
+  PENDING_APPROVAL
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id             String   @id @default(cuid())
+  email          String   @unique
+  username       String   @unique
+  password       String
+  role           UserRole @default(USER)
+  warnings       Int      @default(0)
+  isDisqualified Boolean  @default(false)
+  disqualifiedAt DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  submissions Submission[]
+  sessions    Session[]
+
+  @@map("users")
+}
+
+model Problem {
+  id          String      @id @default(cuid())
+  title       String
+  description String
+  skeletonCode String
+  language    String      @default("javascript")
+  type        ProblemType @default(GENERAL)
+  timeLimit   Int         @default(2000) // milliseconds
+  memoryLimit Int         @default(128)  // MB
+  points      Int         @default(100)
+  isActive    Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  testCases   TestCase[]
+  submissions Submission[]
+  rounds      RoundProblem[]
+
+  @@map("problems")
+}
+
+model TestCase {
+  id        String   @id @default(cuid())
+  problemId String
+  input     String
+  expectedOutput String
+  isHidden  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Relations
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@map("test_cases")
+}
+
+model Submission {
+  id              String           @id @default(cuid())
+  userId          String
+  problemId       String
+  code            String
+  language        String
+  status          SubmissionStatus @default(PENDING)
+  executionTime   Int?             // milliseconds
+  memoryUsage     Int?             // KB
+  score           Int?             @default(0)
+  isFirstCorrect  Boolean          @default(false)
+  submittedAt     DateTime         @default(now())
+
+  // Relations
+  user    User    @relation(fields: [userId], references: [id])
+  problem Problem @relation(fields: [problemId], references: [id])
+
+  @@map("submissions")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Round {
+  id          String      @id @default(cuid())
+  title       String
+  description String?
+  status      RoundStatus @default(DRAFT)
+  startTime   DateTime?
+  endTime     DateTime?
+  duration    Int         // Duration in minutes
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  problems RoundProblem[]
+
+  @@map("rounds")
+}
+
+model RoundProblem {
+  id        String @id @default(cuid())
+  roundId   String
+  problemId String
+  order     Int    @default(0)
+
+  // Relations
+  round   Round   @relation(fields: [roundId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@unique([roundId, problemId])
+  @@map("round_problems")
+}
