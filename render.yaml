@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: idearpit
+    env: node
+    plan: free
+    buildCommand: npm install && npm run db:setup
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: idearpit-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+    healthCheckPath: /
+    autoDeploy: true
+
+databases:
+  - name: idearpit-db
+    plan: free
+    databaseName: idearpit
+    user: idearpit_user
