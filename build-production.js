@@ -18,11 +18,6 @@ try {
   execSync('npx prisma generate', { stdio: 'inherit' });
   console.log('✅ Prisma client generated!');
 
-  // Build the application (without Turbopack for production)
-  console.log('\n🏗️ Building application...');
-  execSync('npm run build', { stdio: 'inherit' });
-  console.log('✅ Application built successfully!');
-
   // Setup database
   console.log('\n🗄️ Setting up database...');
   execSync('npx prisma db push', { stdio: 'inherit' });
@@ -32,6 +27,11 @@ try {
   console.log('\n🌱 Seeding database...');
   execSync('npm run db:seed', { stdio: 'inherit' });
   console.log('✅ Database seeded successfully!');
+
+  // Build the application (after database setup)
+  console.log('\n🏗️ Building application...');
+  execSync('npm run build', { stdio: 'inherit' });
+  console.log('✅ Application built successfully!');
 
   console.log('\n🎉 Production build completed successfully!');
   console.log('\n📋 Admin user created:');

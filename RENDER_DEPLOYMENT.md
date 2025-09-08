@@ -96,17 +96,22 @@ Render provides:
    - Changed build process to use `npm install` instead of `npm ci`
    - Added robust build script for better dependency handling
 
-4. **Build Fails**:
+4. **Production Build Not Found**:
+   - ✅ **Fixed**: Separated build and database setup processes
+   - Build now happens after database setup to preserve `.next` directory
+   - Added startup script that handles database setup on first run
+
+5. **Build Fails**:
    - Check that all dependencies are in `package.json`
    - Verify build command is correct
    - Ensure `NODE_ENV=production` is set
 
-5. **Database Connection Issues**:
+6. **Database Connection Issues**:
    - Verify `DATABASE_URL` is correct
    - Check that Neon database is accessible
    - Ensure database is not sleeping (Neon free tier)
 
-6. **Application Crashes**:
+7. **Application Crashes**:
    - Check logs in Render dashboard
    - Verify environment variables are set
    - Check database connection status

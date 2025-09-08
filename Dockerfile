@@ -16,11 +16,11 @@ COPY . .
 # Generate Prisma client
 RUN npx prisma generate
 
-# Build the application (without Turbopack)
-RUN npm run build
-
 # Setup database and seed
 RUN npm run deploy:prod
+
+# Build the application (after database setup)
+RUN npm run build
 
 # Expose port
 EXPOSE 3000

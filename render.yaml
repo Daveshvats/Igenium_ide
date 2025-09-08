@@ -3,8 +3,8 @@ services:
     name: idearpit
     env: node
     plan: free
-    buildCommand: chmod +x render-build.sh && ./render-build.sh
-    startCommand: npm start
+    buildCommand: npm run build:only
+    startCommand: npm run start:prod
     envVars:
       - key: NODE_ENV
         value: production

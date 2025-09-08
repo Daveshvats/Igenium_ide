@@ -11,10 +11,6 @@ npm install
 echo "🔧 Generating Prisma client..."
 npx prisma generate
 
-# Build the application
-echo "🏗️ Building application..."
-npm run build
-
 # Setup database (only if DATABASE_URL is available)
 if [ ! -z "$DATABASE_URL" ]; then
     echo "🗄️ Setting up database..."
@@ -24,5 +20,9 @@ if [ ! -z "$DATABASE_URL" ]; then
 else
     echo "⚠️ DATABASE_URL not found, skipping database setup"
 fi
+
+# Build the application (after database setup)
+echo "🏗️ Building application..."
+npm run build
 
 echo "✅ Build completed successfully!"

@@ -11,6 +11,9 @@
     "db:setup": "node setup-postgresql.js",
     "deploy:prod": "node deploy-production.js",
     "build:prod": "node build-production.js",
+    "build:only": "node build-only.js",
+    "db:setup-only": "node setup-database.js",
+    "start:prod": "node start-production.js",
     "postinstall": "npx prisma generate"
   },
   "prisma": {
