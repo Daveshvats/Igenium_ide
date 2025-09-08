@@ -10,7 +10,7 @@ try {
 
   // Install dependencies (including dev dependencies for build)
   console.log('📦 Installing dependencies...');
-  execSync('npm ci', { stdio: 'inherit' });
+  execSync('npm install', { stdio: 'inherit' });
   console.log('✅ Dependencies installed!');
 
   // Generate Prisma client
