@@ -12,9 +12,12 @@
     "deploy:prod": "node deploy-production.js",
     "build:prod": "node build-production.js",
     "build:only": "node build-only.js",
+    "build:simple": "node build-simple.js",
     "db:setup-only": "node setup-database.js",
     "start:prod": "node start-production.js",
-    "postinstall": "npx prisma generate"
+    "prisma": {
+      "seed": "node prisma/seed.js"
+    }
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",

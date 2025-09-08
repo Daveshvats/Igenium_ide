@@ -1,6 +1,6 @@
 const { execSync } = require('child_process');
 
-console.log('🚀 Starting build process...\n');
+console.log('🚀 Starting simple build process...\n');
 
 try {
   // Set production environment
@@ -12,17 +12,10 @@ try {
   execSync('npm install', { stdio: 'inherit' });
   console.log('✅ Dependencies installed!');
 
-  // Generate Prisma client
+  // Generate Prisma client manually
   console.log('\n🔧 Generating Prisma client...');
-  try {
-    execSync('npx prisma generate', { stdio: 'inherit' });
-    console.log('✅ Prisma client generated!');
-  } catch (error) {
-    console.log('⚠️ Prisma generate failed, trying alternative approach...');
-    // Try without the config file
-    execSync('npx prisma generate --skip-generate', { stdio: 'inherit' });
-    console.log('✅ Prisma client generated with alternative approach!');
-  }
+  execSync('npx prisma generate', { stdio: 'inherit' });
+  console.log('✅ Prisma client generated!');
 
   // Build the application
   console.log('\n🏗️ Building application...');
