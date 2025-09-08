@@ -3,6 +3,8 @@ import { prisma } from '@/lib/db'
 import { validateSession } from '@/lib/auth'
 import { codeExecutor } from '@/lib/codeExecutor'
 
+export const runtime = 'nodejs'
+
 export async function POST(request: NextRequest) {
   try {
     const token = request.cookies.get('auth-token')?.value

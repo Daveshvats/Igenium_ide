@@ -101,17 +101,26 @@ Render provides:
    - Build now happens after database setup to preserve `.next` directory
    - Added startup script that handles database setup on first run
 
-5. **Build Fails**:
+5. **Tailwind CSS PostCSS Configuration**:
+   - ✅ **Fixed**: Updated PostCSS config to use `@tailwindcss/postcss` plugin
+   - Properly configured for Tailwind CSS v4 compatibility
+
+6. **Edge Runtime Node.js API Warnings**:
+   - ✅ **Fixed**: Added Node.js runtime configuration to all API routes
+   - External packages configured for bcryptjs and jsonwebtoken
+   - Eliminated Edge Runtime compatibility warnings
+
+7. **Build Fails**:
    - Check that all dependencies are in `package.json`
    - Verify build command is correct
    - Ensure `NODE_ENV=production` is set
 
-6. **Database Connection Issues**:
+8. **Database Connection Issues**:
    - Verify `DATABASE_URL` is correct
    - Check that Neon database is accessible
    - Ensure database is not sleeping (Neon free tier)
 
-7. **Application Crashes**:
+9. **Application Crashes**:
    - Check logs in Render dashboard
    - Verify environment variables are set
    - Check database connection status

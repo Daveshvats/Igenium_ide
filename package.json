@@ -16,9 +16,6 @@
     "start:prod": "node start-production.js",
     "postinstall": "npx prisma generate"
   },
-  "prisma": {
-    "seed": "node prisma/seed.js"
-  },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
     "@prisma/client": "^6.15.0",

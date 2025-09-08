@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { validateSession } from '@/lib/auth'
 
+export const runtime = 'nodejs'
+
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
