@@ -27,13 +27,13 @@ This guide will help you deploy your IdeaRpit application to Render using Postgr
    - Click "New +" → "Web Service"
    - Connect your GitHub repository
    - Use these settings:
-     - **Build Command**: `npm install && npm run db:setup`
+     - **Build Command**: `npm install && npm run build && npm run deploy:prod`
      - **Start Command**: `npm start`
      - **Environment**: `Node`
 
 2. **Set Environment Variables**:
    - `NODE_ENV`: `production`
-   - `DATABASE_URL`: Your Neon database connection string
+   - `DATABASE_URL`: `postgresql://neondb_owner:npg_fgahGqk3trW1@ep-lingering-smoke-a70s84j6-pooler.ap-southeast-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require`
    - `JWT_SECRET`: Generate a secure random string
 
 3. **Deploy**: Click "Create Web Service"
