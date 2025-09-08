@@ -8,9 +8,9 @@ try {
   process.env.NODE_ENV = 'production';
   process.env.NEXT_TELEMETRY_DISABLED = '1';
 
-  // Install dependencies
+  // Install dependencies (including dev dependencies for build)
   console.log('📦 Installing dependencies...');
-  execSync('npm ci --only=production', { stdio: 'inherit' });
+  execSync('npm ci', { stdio: 'inherit' });
   console.log('✅ Dependencies installed!');
 
   // Generate Prisma client
